@@ -3,4 +3,5 @@ Pillow
 PyPDF2
 qrcode
 datetime
+time
 cv2
