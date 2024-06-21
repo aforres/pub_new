@@ -9,7 +9,6 @@ PyPDF2
 qrcode
 segno
 datetime
-hashlib
 cv2
 os
 time
