@@ -8,7 +8,6 @@ Pillow
 PyPDF2
 qrcode
 segno
-PIL
 datetime
 hashlib
 cryptography.fernet
