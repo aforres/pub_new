@@ -9,5 +9,5 @@ PyPDF2
 qrcode
 segno
 datetime
-opencv
+cv2
 os
