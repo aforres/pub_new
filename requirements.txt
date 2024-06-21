@@ -10,7 +10,6 @@ qrcode
 segno
 datetime
 hashlib
-cryptography.fernet
-opencv
+cv
 os
 time
