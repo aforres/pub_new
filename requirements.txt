@@ -10,6 +10,6 @@ qrcode
 segno
 datetime
 hashlib
-cv
+cv2
 os
 time
