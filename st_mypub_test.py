@@ -1,68 +1,106 @@
-import streamlit as st
-import pandas as pd
-
-st.title('Title')
-st.header('Header')
-st.subheader('Subheader')
-st.caption('Caption')
-st.code('print("this is some code")')
-st.text('Text')
-st.markdown('- *Markdown*')
-st.latex('\sum_{k=0}^{n-1} ar^k')
-st.dataframe(pd.DataFrame({'a':[1, 2, 3],'b':['A', 'B', 'C']}))
-st.table({'a':[1, 2, 3],'b':['A', 'B', 'C']})
-st.metric('Temp', '75', '5')
-st.metric('Wind', '9', '-4')
-st.json({'a':[1, 2, 3],'b':['A', 'B', 'C']})
-st.button('Button')
-st.download_button('Download Button', b'asdf')
-st.checkbox('Checkbox')
-st.radio('Radio',[1,2,3])
-st.selectbox('Selectbox', ['a','b','c'])
-st.multiselect('Multiselect', ['a','b','c'])
-st.slider('Slider')
-st.select_slider('Select Slider', ['a','b','c'])
-st.text_input('Text Input')
-st.number_input('Number Input')
-st.text_area('Text Area')
-st.date_input('Date Input')
-st.time_input('Time Input')
-st.file_uploader('File Uploader')
-st.camera_input('Camera')
-st.color_picker('Color Picker')
-#st.image('tulips.jpg')
-#st.audio('audio.mp3')
-#st.video('video.mp4')
-st.sidebar.selectbox('Menu', ['a','b','c'])
-col1, col2 = st.columns([1,2])
-col1.text_input('Thinner Column')
-col2.text_input('Thicker Column')
-tab1, tab2 = st.tabs(['TAB 1','TAB 2'])
-tab1.text_area('text in tab 1')
-tab2.date_input('date in tab 2')
-st.expander('Expander')
-st.container()
-placeholder = st.empty()
-placeholder.text('Hide this placeholder container')
-if st.button('Hide'): placeholder.empty()
-st.progress(35)
-st.spinner('Spinner')
-if st.checkbox('Balloons', False):
-  st.balloons()
-if st.checkbox('Snow', False):
-  st.snow()
-st.error('Error')
-st.warning('Warning')
-st.info('Info')
-st.success('Success')
-st.exception(RuntimeError('This is a fake error.'))
-# st.form('')
-# st.form_submit_button('')
+# Core Pkgs
+import streamlit as st 
 import numpy as np
-df=pd.DataFrame(np.random.randn(20, 3), columns=['a', 'b', 'c'])
-st.line_chart(df)
-st.area_chart(df)
-st.bar_chart(df)
-#treemap=pd.read_csv('trees2.csv')
-st.write(treemap)
-st.map(treemap)
+import os 
+import time 
+timestr = time.strftime("%Y%m%d-%H%M%S")
+import cv2
+
+
+# For QR Code
+import qrcode
+
+qr = qrcode.QRCode(
+    version=1,error_correction=qrcode.constants.ERROR_CORRECT_L,
+    box_size=10,
+    border=4,
+)
+
+from PIL import Image
+# Function to Load Image
+def load_image(img):
+    im = Image.open(img)
+    return im
+
+
+# Application
+def main():
+    st.sidebar.text("TEST ONLY - QRC+ DRAFT FORM 001")
+    menu = ["Home","DecodeQR","About"]
+
+    choice = st.sidebar.selectbox("Menu",menu)
+
+    if choice == "Home":
+        #st.text = "Sagebrush Data Integrity QRCode_plus"
+        st.subheader("Home")
+        
+        # Text input
+        with st.form(key='myqr_form'):
+            raw_text = st.text_area("Enter Text Here to be Generated into QR code")
+            submit_button = st.form_submit_button("Generate a QR code")
+
+        # Layout
+        if submit_button:
+
+            col1,col2 = st.columns(2)
+
+            with col1:
+                # Add Data
+                qr.add_data(raw_text)
+                # Generate
+                qr.make(fit=True)
+                img = qr.make_image(fill_color='black',back_color='white')
+
+                # Filename
+                img_filename = 'generate_image_{}.png'.format(timestr)
+                path_for_images = os.path.join('image_folder',img_filename)
+                img.save(path_for_images)
+
+                final_img = load_image(path_for_images)
+                st.image(final_img)
+
+
+            with col2:
+                st.info("Original Text")
+                st.write(raw_text)
+
+
+
+    elif choice == "DecodeQR":
+        st.subheader("Decode QR")
+
+        image_file = st.file_uploader("Upload Image",type=['jpg','png','jpeg'])
+
+        if image_file is not None:
+            # Method 1 : Display Image
+            # img = load_image(image_file)
+            # st.image(img)
+
+            # Method 2: Using opencv * helps in decoding
+            file_bytes = np.asarray(bytearray(image_file.read()),dtype=np.uint8)
+            opencv_image = cv2.imdecode(file_bytes,1)
+
+            c1,c2 = st.columns(2)
+            with c1:
+
+                st.image(opencv_image)
+
+            with c2:
+                st.info("Decoded QR code")
+                det = cv2.QRCodeDetector()
+                retval,points,straight_qrcode = det.detectAndDecode(opencv_image)
+
+                # Retval is for the text
+                st.write(retval)
+                st.write(points)
+                st.write(straight_qrcode)
+
+    else:
+        st.subheader("About")
+
+
+
+
+if __name__ == '__main__':
+    main()
+
