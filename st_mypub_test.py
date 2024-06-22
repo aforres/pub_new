@@ -58,7 +58,7 @@ def main():
                 #img.save(path_for_images)
                 img.save(img_filename)
 
-                final_img = load_image(img_filenam)
+                final_img = load_image(img_filename)
                 st.image(final_img)
 
 
