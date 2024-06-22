@@ -4,5 +4,6 @@ PyPDF2
 opencv-contrib-python
 qrcode
 datetime
+time
 os
 
