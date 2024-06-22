@@ -1,7 +1,5 @@
 streamlit 
 numpy
-os 
-time 
 cv2
 
 
