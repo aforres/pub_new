@@ -1,8 +1,7 @@
-streamlit
-Pillow
-PyPDF2
-opencv-contrib-python
-qrcode
-time
-os
+streamlit 
+numpy
+os 
+time 
+cv2
+
 
