@@ -53,10 +53,12 @@ def main():
 
                 # Filename
                 img_filename = 'generate_image_{}.png'.format(timestr)
-                path_for_images = os.path.join('image_folder',img_filename)
-                img.save(path_for_images)
+                #path_for_images = os.path.join('image_folder',img_filename)
+                #path_for_images = os.path.join('image_folder',img_filename)
+                #img.save(path_for_images)
+                img.save(img_filename)
 
-                final_img = load_image(path_for_images)
+                final_img = load_image(img_filenam)
                 st.image(final_img)
 
 
