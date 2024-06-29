@@ -4,7 +4,7 @@ import numpy as np
 import os 
 import time 
 timestr = time.strftime("%Y%m%d-%H%M%S")
-import cv2
+#import cv2
 
 
 # For QR Code
@@ -71,7 +71,8 @@ def main():
     elif choice == "DecodeQR":
         st.subheader("Decode QR")
 
-        image_file = st.file_uploader("Upload Image",type=['jpg','png','jpeg'])
+        image_file = "C:\\Users\\aforr\\Thonny\\MM\\image_folder\\generate_image_20240629-113327.png"
+        #... st.file_uploader("Upload Image",type=['jpg','png','jpeg'])
 
         if image_file is not None:
             # Method 1 : Display Image
@@ -79,7 +80,8 @@ def main():
             # st.image(img)
 
             # Method 2: Using opencv * helps in decoding
-            file_bytes = np.asarray(bytearray(image_file.read()),dtype=np.uint8)
+            #file_bytes = np.asarray(bytearray(image_file.read()),dtype=np.uint8)
+            
             opencv_image = cv2.imdecode(image_file)
 
             c1,c2 = st.columns(2)
