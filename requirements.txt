@@ -1,3 +1,4 @@
+cv2
 adafruit-board-toolkit==1.1.1
 altair==5.1.2
 ansi2html==1.9.1
