@@ -1,9 +1,8 @@
 # Import Library
 import streamlit as st
-import cv2 as cv2
+import cv2
 
 
-# Name of the QR Code Image file
 filename = "C:\\Users\\aforr\\Thonny\\MM\\image_folder\\generate_image_20240629-113327.png"
 
 # read the QRCODE image
