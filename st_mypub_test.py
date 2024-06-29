@@ -53,9 +53,9 @@ def main():
 
                 # Filename
                 img_filename = 'generate_image_{}.png'.format(timestr)
-                path_for_images = os.path.join('image_folder',img_filename)
+                #path_for_images = os.path.join('image_folder',img_filename)
                 ##path_for_images = os.path.join('image_folder',img_filename)
-                img.save(path_for_images)
+                #img.save(path_for_images)
                 img.save(img_filename)
 
                 final_img = load_image(img_filename)
@@ -80,7 +80,7 @@ def main():
 
             # Method 2: Using opencv * helps in decoding
             file_bytes = np.asarray(bytearray(image_file.read()),dtype=np.uint8)
-            opencv_image = cv2.imdecode(file_bytes,1)
+            opencv_image = cv2.imdecode(image_file)
 
             c1,c2 = st.columns(2)
             with c1:
@@ -90,12 +90,13 @@ def main():
             with c2:
                 st.info("Decoded QR code")
                 det = cv2.QRCodeDetector()
-                retval,points,straight_qrcode = det.detectAndDecode(opencv_image)
-
+                #retval,points,straight_qrcode = det.detectAndDecode(opencv_image)
+                data,vertices_array,binary_qrcode = det.detectAndDecode(opencv_image)
+                
                 # Retval is for the text
-                st.write(retval)
-                st.write(points)
-                st.write(straight_qrcode)
+                st.write(data)
+                st.write(vertices_array)
+                st.write(binary_qrcode)
 
     else:
         st.subheader("About")
