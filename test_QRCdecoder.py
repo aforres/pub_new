@@ -1,6 +1,7 @@
 # Import Library
 import streamlit as st
 import opencv
+import opencv as cv2
 
 
 filename = "C:\\Users\\aforr\\Thonny\\MM\\image_folder\\generate_image_20240629-113327.png"
