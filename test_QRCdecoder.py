@@ -1,6 +1,6 @@
 # Import Library
 import streamlit as st
-import cv2
+import opencv-python
 
 
 # Name of the QR Code Image file
